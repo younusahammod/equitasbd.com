@@ -1,0 +1,77 @@
+Build a professional, modern, and responsive website for a law firm based in Bangladesh.
+
+Firm Details:
+	•	Name: EQUITAS
+	•	Domain: equitasbd.com
+	•	Email: info@equitasbd.com
+	•	Logo: Use the attached logo across the website (header, footer, favicon if possible)
+
+General Requirements:
+	•	Clean, professional legal-industry design (trustworthy, minimal, elegant)
+	•	Fully responsive (mobile, tablet, desktop)
+	•	Fast loading and SEO-friendly structure
+	•	Use a professional color scheme (navy blue, white, gold accents preferred)
+	•	Include clear call-to-action buttons (e.g., “Contact Us”, “Book Consultation”)
+	•	Use modern fonts and good spacing
+
+Pages to Create (5–6 pages):
+	1.	Home Page
+	•	Hero section with firm tagline (e.g., “Justice. Integrity. Excellence.”)
+	•	Brief introduction about EQUITAS
+	•	Key practice areas (short overview)
+	•	Why choose us (experience, trust, results)
+	•	Call-to-action section
+	•	Contact preview (phone/email/form)
+	2.	About Us
+	•	Firm background
+	•	Mission & vision
+	•	Values (integrity, professionalism, client focus)
+	•	Team introduction (placeholder profiles if needed)
+	3.	Practice Areas
+	•	List of legal services such as:
+	•	Corporate Law
+	•	Civil Litigation
+	•	Criminal Defense
+	•	Family Law
+	•	Property Law
+	•	Immigration Law
+	•	Each with short descriptions
+	4.	Our Team
+	•	Lawyer profiles (name, designation, short bio, photo placeholder)
+	•	Clean card/grid layout
+	5.	Contact Page
+	•	Contact form (name, email, phone, message)
+	•	Email: info@equitasbd.com
+	•	Office address (use placeholder in Bangladesh)
+	•	Google Maps embed (placeholder location)
+	•	Business hours
+	6.	Optional: Blog / Insights
+	•	Simple blog layout for legal articles
+	•	2–3 sample posts (placeholder)
+
+Functional Requirements:
+	•	Working contact form (can simulate backend or use placeholder API)
+	•	Navigation bar with all pages
+	•	Footer with:
+	•	Logo
+	•	Quick links
+	•	Contact info
+	•	Copyright
+
+Technical Preferences:
+	•	Use modern stack (React / Next.js preferred)
+	•	Clean component structure
+	•	SEO meta tags for each page
+	•	Accessible and well-structured HTML
+
+Content Style:
+	•	Professional legal tone
+	•	Clear, concise English
+	•	No spelling or grammar mistakes
+
+Extras (if possible):
+	•	Basic animations (fade-in, hover effects)
+	•	Sticky header
+	•	Scroll-to-top button
+
+Ensure the website looks like a premium international law firm and is suitable for real client use.
