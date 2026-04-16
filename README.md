@@ -19,17 +19,23 @@ The website is prepared for static deployment.
 
 ### No-Build Hosting
 
-If you want hosting without any build step, use the already-generated `dist` folder from the repository.
+If you want hosting without any build step, use the already-generated dist folder from the repository.
 
-- Build command: leave empty
-- Deploy command: leave empty
-- Output directory: `dist`
+- Build command: pnpm run build
+- Deploy command: npx wrangler deploy
+- Root directory: /
+- Output directory: dist
+- Environment variables: none
 
-### Cloudflare Pages
+### Cloudflare setup
 
-- Build command: leave empty
-- Deploy command: leave empty
-- Build output directory: `dist`
+Use these exact values in Cloudflare:
+
+- Build command: pnpm run build
+- Deploy command: npx wrangler deploy
+- Root directory: /
+- Build token: equitasbd build token
+- Environment variables: none
 
 ## Notes
 

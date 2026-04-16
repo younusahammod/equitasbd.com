@@ -8,13 +8,16 @@
     "build:site": "pnpm --filter @workspace/equitas-law-firm run build",
     "preview:site": "pnpm --filter @workspace/equitas-law-firm run serve",
     "build": "pnpm run build:site",
+    "deploy": "wrangler deploy",
     "build:full": "pnpm run typecheck && pnpm -r --if-present run build",
     "typecheck:libs": "tsc --build",
     "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
   "private": true,
+  "packageManager": "pnpm@10.11.1",
   "devDependencies": {
     "typescript": "~5.9.2",
-    "prettier": "^3.8.1"
+    "prettier": "^3.8.1",
+    "wrangler": "^4.11.1"
   }
 }
