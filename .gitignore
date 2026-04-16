@@ -3,6 +3,7 @@ node_modules/
 
 # build output
 artifacts/*/dist/
+lib/*/dist/
 *.tsbuildinfo
 
 # environment files
