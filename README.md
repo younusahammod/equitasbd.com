@@ -13,9 +13,14 @@ Professional law firm website built with Vite, React, and TypeScript.
 
 The website is prepared for static deployment.
 
-1. Run `pnpm run build:site`
-2. Upload the contents of `artifacts/equitas-law-firm/dist`
+1. Run `pnpm run build`
+2. Upload the contents of `dist`
 3. Deploy to any static host such as Netlify, Vercel, GitHub Pages, or Cloudflare Pages
+
+### Cloudflare Pages
+
+- Build command: `pnpm run build`
+- Build output directory: `dist`
 
 ## Notes
 
