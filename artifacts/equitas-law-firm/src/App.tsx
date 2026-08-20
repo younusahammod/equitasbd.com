@@ -131,7 +131,7 @@ const teamMembers: TeamMember[] = [
     photo: teamLulu,
   },
   {
-    name: "Faisal Mahmood Anabil",
+    name: "Faisal Mahmud Anabil",
     role: "External Counsel",
     credential: "Barrister-at-Law, Advocate, Supreme Court of Bangladesh",
     initials: "FA",
@@ -672,6 +672,8 @@ function TeamPhoto({ member, className = "" }: { member: (typeof teamMembers)[nu
 }
 
 function TeamSpotlight({ member }: { member: (typeof teamMembers)[number] }) {
+  const primary = member.credential || member.role;
+  const secondary = member.credential ? member.role : null;
   return (
     <section className="bg-[#f7f2e8] px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-[0.8fr_1.2fr]">
@@ -679,9 +681,9 @@ function TeamSpotlight({ member }: { member: (typeof teamMembers)[number] }) {
           <TeamPhoto member={member} />
         </div>
         <div>
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-[#8b6824]">{member.role}</p>
           <h2 className="font-serif text-4xl font-bold text-[#061a2f] md:text-5xl">{member.name}</h2>
-          {member.credential && <p className="mt-3 text-lg font-semibold text-[#a87924]">{member.credential}</p>}
+          <p className="mt-3 text-lg font-semibold text-[#a87924]">{primary}</p>
+          {secondary && <p className="mt-1 text-sm font-bold uppercase tracking-[0.18em] text-[#8b6824]">{secondary}</p>}
           {member.slug && (
             <Link href={member.slug} className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#061a2f] px-6 py-3 font-bold text-white transition hover:-translate-y-1 hover:bg-[#12345a]">
               View Full Profile <ArrowRight className="h-4 w-4" />
@@ -694,13 +696,15 @@ function TeamSpotlight({ member }: { member: (typeof teamMembers)[number] }) {
 }
 
 function TeamCard({ member }: { member: (typeof teamMembers)[number] }) {
+  const primary = member.credential || member.role;
+  const secondary = member.credential ? member.role : null;
   const cardContent = (
     <>
       <TeamPhoto member={member} />
       <div className="p-6">
         <h3 className="font-serif text-xl font-bold text-[#061a2f]">{member.name}</h3>
-        <p className="mt-1 text-sm font-bold uppercase tracking-[0.18em] text-[#a87924]">{member.role}</p>
-        {member.credential && <p className="mt-4 leading-7 text-slate-600">{member.credential}</p>}
+        <p className="mt-1 text-sm font-bold uppercase tracking-[0.18em] text-[#a87924]">{primary}</p>
+        {secondary && <p className="mt-4 leading-7 text-slate-600">{secondary}</p>}
         {member.slug && <p className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[#8b6824]">View profile <ArrowRight className="h-3.5 w-3.5" /></p>}
       </div>
     </>
@@ -846,7 +850,7 @@ function WasiurRahmanProfile() {
           memberOf: { "@type": "Organization", name: "Supreme Court Bar Association, Bangladesh" },
         }}
       />
-      <PageHero label="Managing Partner" title="Md. Wasiur Rahman" text="Advocate, Supreme Court of Bangladesh — specializing in Labour Law, Civil Law, Banking Law, and Writ matters." />
+      <ProfileHero member={member} tagline="Specializing in Labour Law, Civil Law, Banking Law, and Writ matters." />
 
       <section className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
@@ -974,13 +978,13 @@ function FaisalAnabilProfile() {
   return (
     <>
       <PageSeo
-        title="Faisal Mahmood Anabil | External Counsel | EQUITAS Law Firm"
-        description="Faisal Mahmood Anabil is a Barrister-at-Law and Advocate of the Supreme Court of Bangladesh, focused on corporate and commercial law, contracts, regulatory matters, civil litigation, and dispute resolution."
+        title="Faisal Mahmud Anabil | External Counsel | EQUITAS Law Firm"
+        description="Faisal Mahmud Anabil is a Barrister-at-Law and Advocate of the Supreme Court of Bangladesh, focused on corporate and commercial law, contracts, regulatory matters, civil litigation, and dispute resolution."
         path="/team/faisal-anabil"
         schema={{
           "@context": "https://schema.org",
           "@type": "Person",
-          name: "Faisal Mahmood Anabil",
+          name: "Faisal Mahmud Anabil",
           jobTitle: "External Counsel, Barrister-at-Law",
           url: `${SITE_URL}/team/faisal-anabil`,
           image: `${SITE_URL}${teamFaisal}`,
@@ -992,7 +996,7 @@ function FaisalAnabilProfile() {
           ],
         }}
       />
-      <PageHero label="External Counsel" title="Faisal Mahmood Anabil" text="Barrister-at-Law (Lincoln's Inn, UK) — Advocate, Supreme Court of Bangladesh, specializing in Corporate & Commercial Law and Dispute Resolution." />
+      <ProfileHero member={member} tagline="Specializing in Corporate & Commercial Law and Dispute Resolution." />
 
       <section className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
@@ -1014,7 +1018,7 @@ function FaisalAnabilProfile() {
 
             <div>
               <p className="leading-8 text-slate-600">
-                Faisal Mahmood Anabil is a Barrister-at-Law and Advocate of the Supreme Court of Bangladesh, with professional work focused primarily on corporate and commercial law, contracts, regulatory matters, civil litigation, and dispute resolution.
+                Faisal Mahmud Anabil is a Barrister-at-Law and Advocate of the Supreme Court of Bangladesh, with professional work focused primarily on corporate and commercial law, contracts, regulatory matters, civil litigation, and dispute resolution.
               </p>
               <p className="mt-5 leading-8 text-slate-600">
                 His practice covers a broad range of corporate and commercial matters, including the drafting, review, and negotiation of commercial agreements, joint ventures, memoranda of understanding, business arrangements, and other contractual documents. He regularly advises on corporate governance, regulatory compliance, commercial transactions, land and property matters, intellectual property, and legal issues arising from business operations — with particular attention to contractual rights and obligations, commercial risk, regulatory requirements, and the prevention of future disputes. Legal issues are considered not only from a strictly legal position, but also in light of their practical and commercial consequences.
@@ -1116,7 +1120,7 @@ function KaffiAbdullahKhanProfile() {
           memberOf: { "@type": "Organization", name: "Dhaka Bar Association" },
         }}
       />
-      <PageHero label="Senior Associate" title="Kaffi Abdullah Khan" text="Advocate, Supreme Court of Bangladesh — experienced in commercial litigation, contracts, and corporate legal practice." />
+      <ProfileHero member={member} tagline="Experienced in commercial litigation, contracts, and corporate legal practice." />
 
       <section className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
@@ -1310,6 +1314,22 @@ function PageHero({ label, title, text }: { label: string; title: string; text: 
         <p className="mb-5 text-sm font-bold uppercase tracking-[0.28em] text-[#d4af62]">{label}</p>
         <h1 className="max-w-4xl font-serif text-5xl font-bold leading-tight md:text-6xl">{title}</h1>
         <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-300">{text}</p>
+      </div>
+    </section>
+  );
+}
+
+function ProfileHero({ member, tagline }: { member: (typeof teamMembers)[number]; tagline?: string }) {
+  const primary = member.credential || member.role;
+  const secondary = member.credential ? member.role : null;
+  return (
+    <section className="relative overflow-hidden bg-[#061a2f] px-4 py-24 text-white sm:px-6 lg:px-8">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_0%,rgba(212,175,98,0.22),transparent_35%)]" />
+      <div className="relative mx-auto max-w-7xl">
+        <h1 className="max-w-4xl font-serif text-5xl font-bold leading-tight md:text-6xl">{member.name}</h1>
+        <p className="mt-5 max-w-3xl text-lg font-semibold text-[#d4af62]">{primary}</p>
+        {secondary && <p className="mt-1 text-sm font-bold uppercase tracking-[0.28em] text-slate-300">{secondary}</p>}
+        {tagline && <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-300">{tagline}</p>}
       </div>
     </section>
   );
