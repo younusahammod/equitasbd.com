@@ -3,6 +3,7 @@ import { Link, Route, Router as WouterRouter, Switch, useLocation } from "wouter
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import NotFound from "@/pages/not-found";
 import logo from "@assets/WhatsApp_Image_2026-04-06_at_11.59.45_1776372697723.jpeg";
 import teamWasiur from "@assets/team/wasiur-rahman.jpeg";
@@ -114,8 +115,8 @@ type TeamMember = {
 
 const teamMembers: TeamMember[] = [
   {
-    name: "Wasiur Rahman",
-    role: "Head of Chamber",
+    name: "Md. Wasiur Rahman",
+    role: "Managing Partner",
     credential: "Advocate, Supreme Court of Bangladesh",
     initials: "WR",
     photo: teamWasiur,
@@ -124,7 +125,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Lulu Garbia Hasan",
-    role: "Managing Partner",
+    role: "Partner",
     credential: "Advocate, Supreme Court of Bangladesh",
     initials: "LH",
     photo: teamLulu,
@@ -139,15 +140,16 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Kaffi Abdullah Khan",
-    role: "Managing Partner",
+    role: "Senior Associate",
     credential: "Advocate, Supreme Court of Bangladesh",
     initials: "KK",
     photo: teamKaffi,
+    slug: "/team/kaffi-abdullah-khan",
   },
   {
     name: "Md. Raton Ali",
-    role: "Advocate",
-    credential: "Supreme Court of Bangladesh",
+    role: "Associate",
+    credential: "Advocate, Supreme Court of Bangladesh",
     initials: "RA",
     photo: teamRaton,
   },
@@ -160,7 +162,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     name: "Sadikul Islam",
-    role: "Associate",
+    role: "Intern",
     credential: "",
     initials: "SI",
     photo: teamSadikul,
@@ -321,7 +323,7 @@ function Footer() {
             <img src={logo} alt="EQUITAS Law Firm logo" className="h-16 w-16 rounded-full bg-white object-cover p-1" />
             <div>
               <p className="font-serif text-3xl font-bold tracking-[0.18em]">EQUITAS</p>
-              <p className="text-sm uppercase tracking-[0.3em] text-[#d4af62]">Justice. Integrity. Excellence.</p>
+              <p className="text-sm uppercase tracking-[0.3em] text-[#d4af62]">Justice, Integrity, Excellence.</p>
             </div>
           </div>
           <p className="max-w-xl text-sm leading-7 text-slate-300">
@@ -352,7 +354,7 @@ function Footer() {
               </div>
             </div>
             <p className="flex items-start gap-2">
-              <MapPin className="mt-1 h-4 w-4 text-[#d4af62]" /> Suite-4B, Silver Rain, 48 Bijoynagar (Behind Hotel-71), Dhaka 1000
+              <MapPin className="mt-1 h-4 w-4 text-[#d4af62]" /> Suite-4B, Silver Rain, 48 Bijoynagar (Behind Hotel-71), Dhaka-1000, Bangladesh
             </p>
           </div>
         </div>
@@ -397,13 +399,13 @@ function CtaBand() {
 function Home() {
   return (
     <>
-      <PageSeo title="EQUITAS Law Firm Bangladesh | Justice. Integrity. Excellence." description="EQUITAS is a professional Bangladesh law firm offering criminal, civil, writ, and labour litigation alongside corporate, property, family, and banking legal services." path="/" />
+      <PageSeo title="EQUITAS Law Firm Bangladesh | Justice, Integrity, Excellence." description="EQUITAS is a professional Bangladesh law firm offering criminal, civil, writ, and labour litigation alongside corporate, property, family, and banking legal services." path="/" />
       <section className="relative overflow-hidden bg-[#061a2f] text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(212,175,98,0.24),transparent_35%),linear-gradient(135deg,rgba(255,255,255,0.08),transparent_45%)]" />
         <div className="relative mx-auto grid min-h-[760px] max-w-7xl items-center gap-14 px-4 py-20 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
           <div className="reveal">
             <p className="mb-5 inline-flex rounded-full border border-[#d4af62]/30 bg-white/5 px-4 py-2 text-sm font-semibold text-[#e2c37d]">Bangladesh legal counsel for decisive matters</p>
-            <h1 className="font-serif text-5xl font-bold leading-tight md:text-7xl">Justice. Integrity. Excellence.</h1>
+            <h1 className="font-serif text-4xl font-bold leading-tight md:text-6xl">Justice, Integrity, Excellence.</h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-200">
               EQUITAS combines disciplined advocacy with practical legal strategy for individuals, families, entrepreneurs, and institutions across Bangladesh.
             </p>
@@ -448,7 +450,7 @@ function Home() {
 
       <StatsStrip />
       <PracticePreview limit={6} />
-      <TeamGrid limit={4} showViewAll />
+      <TeamCarousel />
       <HowWeWork />
       <WhyChooseUs />
       <ContactPreview />
@@ -459,16 +461,16 @@ function Home() {
 
 function StatsStrip() {
   const stats = [
-    { value: String(practiceAreas.length), label: "Practice Areas" },
-    { value: String(teamMembers.length), label: "Advocates & Associates" },
-    { value: "Dhaka", label: "Chamber Location" },
+    { value: String(practiceAreas.length), label: "Practice Areas", size: "text-4xl md:text-5xl" },
+    { value: String(teamMembers.length), label: "Advocates & Associates", size: "text-4xl md:text-5xl" },
+    { value: "Dhaka, Bangladesh", label: "Chamber Location", size: "text-2xl md:text-3xl" },
   ];
   return (
     <section className="border-y border-slate-200 bg-white px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-3">
         {stats.map((stat) => (
           <div key={stat.label} className="text-center">
-            <p className="font-serif text-4xl font-bold text-[#061a2f] md:text-5xl">{stat.value}</p>
+            <p className={`font-serif font-bold text-[#061a2f] ${stat.size}`}>{stat.value}</p>
             <p className="mt-2 text-sm font-bold uppercase tracking-[0.18em] text-[#a87924]">{stat.label}</p>
           </div>
         ))}
@@ -641,12 +643,12 @@ function PracticeAreas() {
 }
 
 function Team() {
-  const headOfChamber = teamMembers.find((member) => member.featured);
+  const featuredMember = teamMembers.find((member) => member.featured);
   return (
     <>
       <PageSeo title="Our Team | EQUITAS Law Firm" description="Meet the EQUITAS legal team serving clients across Bangladesh with professionalism and disciplined advocacy." path="/team" />
       <PageHero label="Our Team" title="Experienced counsel. Careful preparation. Client-focused service." text="Meet the advocates and associates representing EQUITAS clients before Bangladesh's courts." />
-      {headOfChamber && <TeamSpotlight member={headOfChamber} />}
+      {featuredMember && <TeamSpotlight member={featuredMember} />}
       <TeamGrid />
       <CtaBand />
     </>
@@ -691,6 +693,25 @@ function TeamSpotlight({ member }: { member: (typeof teamMembers)[number] }) {
   );
 }
 
+function TeamCard({ member }: { member: (typeof teamMembers)[number] }) {
+  const cardContent = (
+    <>
+      <TeamPhoto member={member} />
+      <div className="p-6">
+        <h3 className="font-serif text-xl font-bold text-[#061a2f]">{member.name}</h3>
+        <p className="mt-1 text-sm font-bold uppercase tracking-[0.18em] text-[#a87924]">{member.role}</p>
+        {member.credential && <p className="mt-4 leading-7 text-slate-600">{member.credential}</p>}
+        {member.slug && <p className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[#8b6824]">View profile <ArrowRight className="h-3.5 w-3.5" /></p>}
+      </div>
+    </>
+  );
+  return (
+    <article className="h-full overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-2 hover:shadow-2xl">
+      {member.slug ? <Link href={member.slug}>{cardContent}</Link> : cardContent}
+    </article>
+  );
+}
+
 function TeamGrid({ limit, showViewAll = false }: { limit?: number; showViewAll?: boolean }) {
   const members = limit ? teamMembers.slice(0, limit) : teamMembers.filter((member) => !member.featured);
   return (
@@ -708,25 +729,49 @@ function TeamGrid({ limit, showViewAll = false }: { limit?: number; showViewAll?
           )}
         </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {members.map((member) => {
-            const cardContent = (
-              <>
-                <TeamPhoto member={member} />
-                <div className="p-6">
-                  <h3 className="font-serif text-xl font-bold text-[#061a2f]">{member.name}</h3>
-                  <p className="mt-1 text-sm font-bold uppercase tracking-[0.18em] text-[#a87924]">{member.role}</p>
-                  {member.credential && <p className="mt-4 leading-7 text-slate-600">{member.credential}</p>}
-                  {member.slug && <p className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-[#8b6824]">View profile <ArrowRight className="h-3.5 w-3.5" /></p>}
-                </div>
-              </>
-            );
-            return (
-              <article key={member.name} className="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-2 hover:shadow-2xl">
-                {member.slug ? <Link href={member.slug}>{cardContent}</Link> : cardContent}
-              </article>
-            );
-          })}
+          {members.map((member) => (
+            <TeamCard key={member.name} member={member} />
+          ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function TeamCarousel() {
+  const [api, setApi] = useState<CarouselApi>();
+
+  useEffect(() => {
+    if (!api) return;
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [api]);
+
+  return (
+    <section className="px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <SectionLabel>Legal Team</SectionLabel>
+            <h2 className="font-serif text-4xl font-bold text-[#061a2f] md:text-5xl">Meet our lawyers.</h2>
+          </div>
+          <Link href="/team" className="inline-flex items-center gap-2 font-bold text-[#8b6824] hover:text-[#061a2f]">
+            Meet the full team <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+        <Carousel opts={{ loop: true, align: "start" }} setApi={setApi}>
+          <CarouselContent>
+            {teamMembers.map((member) => (
+              <CarouselItem key={member.name} className="sm:basis-1/2 lg:basis-1/4">
+                <TeamCard member={member} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-2 border-none bg-white shadow-lg hover:bg-[#f7f2e8]" />
+          <CarouselNext className="right-2 border-none bg-white shadow-lg hover:bg-[#f7f2e8]" />
+        </Carousel>
       </div>
     </section>
   );
@@ -784,14 +829,14 @@ function WasiurRahmanProfile() {
   return (
     <>
       <PageSeo
-        title="Wasiur Rahman | Head of Chamber | EQUITAS Law Firm"
-        description="Md. Wasiur Rahman, Head of Chamber at EQUITAS, is an Advocate of the Supreme Court of Bangladesh specializing in Labour Law, Civil Law, Banking Law, and Writ matters."
+        title="Md. Wasiur Rahman | Managing Partner | EQUITAS Law Firm"
+        description="Md. Wasiur Rahman, Managing Partner at EQUITAS, is an Advocate of the Supreme Court of Bangladesh specializing in Labour Law, Civil Law, Banking Law, and Writ matters."
         path="/team/wasiur-rahman"
         schema={{
           "@context": "https://schema.org",
           "@type": "Person",
           name: "Md. Wasiur Rahman",
-          jobTitle: "Head of Chamber",
+          jobTitle: "Managing Partner",
           url: `${SITE_URL}/team/wasiur-rahman`,
           image: `${SITE_URL}${teamWasiur}`,
           email: "mailto:wrahman108@gmail.com",
@@ -801,7 +846,7 @@ function WasiurRahmanProfile() {
           memberOf: { "@type": "Organization", name: "Supreme Court Bar Association, Bangladesh" },
         }}
       />
-      <PageHero label="Head of Chamber" title="Md. Wasiur Rahman" text="Advocate, Supreme Court of Bangladesh — specializing in Labour Law, Civil Law, Banking Law, and Writ matters." />
+      <PageHero label="Managing Partner" title="Md. Wasiur Rahman" text="Advocate, Supreme Court of Bangladesh — specializing in Labour Law, Civil Law, Banking Law, and Writ matters." />
 
       <section className="px-4 py-16 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
@@ -961,10 +1006,6 @@ function FaisalAnabilProfile() {
               </div>
               <div className="mt-8 space-y-4 rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
                 <p className="flex items-start gap-2 text-sm font-semibold text-slate-700">
-                  <BriefcaseBusiness className="mt-0.5 h-4 w-4 shrink-0 text-[#a87924]" />
-                  <span>Liberty Chambers</span>
-                </p>
-                <p className="flex items-start gap-2 text-sm font-semibold text-slate-700">
                   <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#a87924]" />
                   <a href="mailto:info@equitasbd.com" className="hover:text-[#061a2f]">info@equitasbd.com</a>
                 </p>
@@ -1007,6 +1048,139 @@ function FaisalAnabilProfile() {
                   <div key={item.degree} className="flex flex-col gap-1 border-b border-slate-200 pb-4 last:border-none">
                     <p className="font-semibold text-[#061a2f]">{item.degree}</p>
                     <p className="text-sm text-slate-500">{item.institution}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <CtaBand />
+    </>
+  );
+}
+
+const kaffiExpertise = [
+  "Corporate & Commercial Law",
+  "Contract Drafting & Vetting",
+  "Employment & Termination Matters",
+  "Trademark & IP Matters",
+  "Land & Property Documentation",
+  "Banking Law",
+  "Civil Litigation",
+];
+
+const kaffiCredentials = [
+  { label: "Date of Enrollment", value: "18 October 2014" },
+  { label: "High Court Division Practice", value: "Permitted to practice since 4 November 2019" },
+  { label: "Bar Council Registration", value: "Advocate, Bangladesh Bar Council" },
+  { label: "District Bar Association", value: "Dhaka Bar Association, Membership No. 21649" },
+];
+
+const kaffiExperience = [
+  { role: "Assistant Manager (Legal), Eskayef Pharmaceuticals Limited", period: "July 2019 – Present", text: "Drafts and vets international and local commercial agreements, and handles employment, trademark, and counterfeit-product matters for the company." },
+  { role: "Senior Executive (Legal), Urban Design & Developments Ltd.", period: "January 2018 – June 2019", text: "Provided opinions on land documentation, drafted legal documents including deeds, MOUs, and POAs, and represented the company in court as required." },
+  { role: "Senior Executive (Legal), Manama Developments Ltd.", period: "September 2016 – December 2017", text: "Prepared legal documents, vetted land documents, negotiated dues settlements, and represented the company in court as required." },
+  { role: "Associate Lawyer, Azad & Company", period: "March 2015 – August 2016", text: "Drafted legal opinions for One Bank Ltd, Mercantile Bank Ltd, and Dhaka Bank Ltd, and monitored cases before the concerned courts." },
+];
+
+const kaffiEducation = [
+  { degree: "LL.M", institution: "University of Rajshahi", year: "2013" },
+  { degree: "LL.B (Hons)", institution: "University of Rajshahi", year: "2012" },
+  { degree: "H.S.C", institution: "Badshah Faisal Institute", year: "2007" },
+  { degree: "S.S.C", institution: "Badshah Faisal Institute", year: "2005" },
+];
+
+function KaffiAbdullahKhanProfile() {
+  const member = teamMembers.find((item) => item.slug === "/team/kaffi-abdullah-khan");
+  if (!member) return null;
+
+  return (
+    <>
+      <PageSeo
+        title="Kaffi Abdullah Khan | Senior Associate | EQUITAS Law Firm"
+        description="Kaffi Abdullah Khan is an Advocate of the Supreme Court of Bangladesh with experience in commercial litigation and corporate legal practice, including contracts, employment, IP, and land matters."
+        path="/team/kaffi-abdullah-khan"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          name: "Kaffi Abdullah Khan",
+          jobTitle: "Senior Associate",
+          url: `${SITE_URL}/team/kaffi-abdullah-khan`,
+          image: `${SITE_URL}${teamKaffi}`,
+          email: "mailto:mekaffi13@gmail.com",
+          telephone: "+8801788017130",
+          worksFor: { "@type": "LegalService", name: "EQUITAS Law Firm", url: SITE_URL },
+          alumniOf: "University of Rajshahi",
+          memberOf: { "@type": "Organization", name: "Dhaka Bar Association" },
+        }}
+      />
+      <PageHero label="Senior Associate" title="Kaffi Abdullah Khan" text="Advocate, Supreme Court of Bangladesh — experienced in commercial litigation, contracts, and corporate legal practice." />
+
+      <section className="px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <Link href="/team" className="mb-10 inline-flex items-center gap-2 text-sm font-bold text-[#8b6824] hover:text-[#061a2f]">
+            ← Back to Our Team
+          </Link>
+          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr]">
+            <div>
+              <div className="mx-auto w-full max-w-xs overflow-hidden rounded-[2rem] border-4 border-[#d4af62]/60 shadow-2xl lg:mx-0">
+                <TeamPhoto member={member} />
+              </div>
+              <div className="mt-8 space-y-4 rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                  <Mail className="h-4 w-4 shrink-0 text-[#a87924]" />
+                  <a href="mailto:mekaffi13@gmail.com" className="hover:text-[#061a2f]">mekaffi13@gmail.com</a>
+                </p>
+                <p className="flex items-center gap-2 text-sm font-semibold text-slate-700">
+                  <Phone className="h-4 w-4 shrink-0 text-[#a87924]" />
+                  <a href="tel:+8801788017130" className="hover:text-[#061a2f]">+880 1788-017130</a>
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <p className="leading-8 text-slate-600">
+                Kaffi Abdullah Khan is an Advocate enrolled with the Bangladesh Bar Council and a member of the Dhaka Bar Association, with experience spanning both commercial litigation and corporate legal practice. His work covers drafting and vetting international and domestic commercial agreements, employment and termination matters, trademark registration and infringement issues, land document vetting, and court representation in civil and commercial matters.
+              </p>
+
+              <h2 className="mb-4 mt-10 font-serif text-2xl font-bold text-[#061a2f]">Areas of Expertise</h2>
+              <div className="flex flex-wrap gap-2">
+                {kaffiExpertise.map((item) => (
+                  <span key={item} className="rounded-full border border-[#d4af62]/40 bg-[#f7f2e8] px-4 py-2 text-sm font-semibold text-[#8b6824]">
+                    {item}
+                  </span>
+                ))}
+              </div>
+
+              <h2 className="mb-4 mt-10 font-serif text-2xl font-bold text-[#061a2f]">Professional Credentials</h2>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {kaffiCredentials.map((item) => (
+                  <div key={item.label} className="rounded-[1.25rem] border border-slate-200 bg-white p-5 shadow-sm">
+                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#a87924]">{item.label}</p>
+                    <p className="mt-1 font-semibold text-[#061a2f]">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <h2 className="mb-4 mt-10 font-serif text-2xl font-bold text-[#061a2f]">Experience</h2>
+              <div className="space-y-4">
+                {kaffiExperience.map((item) => (
+                  <div key={item.role} className="rounded-[1.25rem] border-l-4 border-[#d4af62] bg-white p-5 shadow-sm">
+                    <p className="font-semibold text-[#061a2f]">{item.role}</p>
+                    <p className="mt-1 text-sm text-slate-500">{item.period}</p>
+                    <p className="mt-2 leading-6 text-slate-600">{item.text}</p>
+                  </div>
+                ))}
+              </div>
+
+              <h2 className="mb-4 mt-10 font-serif text-2xl font-bold text-[#061a2f]">Education</h2>
+              <div className="space-y-4">
+                {kaffiEducation.map((item) => (
+                  <div key={item.degree} className="flex flex-col gap-1 border-b border-slate-200 pb-4 last:border-none">
+                    <p className="font-semibold text-[#061a2f]">{item.degree}</p>
+                    <p className="text-sm text-slate-500">{item.institution} · {item.year}</p>
                   </div>
                 ))}
               </div>
@@ -1082,8 +1256,8 @@ function Contact() {
           <div className="grid gap-5">
             <InfoPanel icon={Mail} title="Email" text="info@equitasbd.com" />
             <InfoPanel icon={Phone} title="Phone" text="+880 1911-065363, +880 1737-056336" />
-            <InfoPanel icon={MapPin} title="Chamber Address" text="Suite-4B, Silver Rain, 48 Bijoynagar (Behind Hotel-71), Dhaka 1000" />
-            <InfoPanel icon={Clock} title="Business Hours" text="Sunday–Thursday, 9:30 AM–6:00 PM" />
+            <InfoPanel icon={MapPin} title="Chamber Address" text="Suite-4B, Silver Rain, 48 Bijoynagar (Behind Hotel-71), Dhaka-1000, Bangladesh" />
+            <InfoPanel icon={Clock} title="Business Hours" text="Sunday–Thursday, 9:30 AM–9:00 PM" />
             <div className="overflow-hidden rounded-[1.5rem] border border-slate-200 shadow-lg">
               <iframe
                 title="EQUITAS chamber location map"
@@ -1175,6 +1349,7 @@ function Router() {
         <Route path="/team" component={Team} />
         <Route path="/team/wasiur-rahman" component={WasiurRahmanProfile} />
         <Route path="/team/faisal-anabil" component={FaisalAnabilProfile} />
+        <Route path="/team/kaffi-abdullah-khan" component={KaffiAbdullahKhanProfile} />
         <Route path="/insights" component={Insights} />
         <Route path="/contact" component={Contact} />
         <Route component={NotFound} />
